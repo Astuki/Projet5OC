@@ -1,55 +1,56 @@
 const slides = [
 	{
-		"image":"slide1.jpg",
+		"image":"assets/images/slideshow/slide1.jpg",
 		"tagLine":"Impressions tous formats <span>en boutique et en ligne</span>"
 	},
 	{
-		"image":"slide2.jpg",
+		"image":"assets/images/slideshow/slide2.jpg",
 		"tagLine":"Tirages haute définition grand format <span>pour vos bureaux et events</span>"
 	},
 	{
-		"image":"slide3.jpg",
+		"image":"assets/images/slideshow/slide3.jpg",
 		"tagLine":"Grand choix de couleurs <span>de CMJN aux pantones</span>"
 	},
 	{
-		"image":"slide4.png",
+		"image":"assets/images/slideshow/slide4.png",
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
 	}
 ]
 
 let arrowLeft = document.querySelector("img.arrow_left");
 let arrowRight = document.querySelector("img.arrow_right");
+let changingImage = document.querySelector("img.banner-img");
+let changingText = document.querySelectorAll(".text");
 
 let i = 1;
+let y = 0; /* parce que l'objet slides démarre à 0 et pas 1 */
 
-document.addEventListener('DOMContentLoaded', function() { /* So that 1st dot auto selected */
+document.addEventListener('DOMContentLoaded', function() { /* 1st dot load quand la page load */
 	const firstDot = document.querySelector('span.dot:nth-child(1)');
 	firstDot.classList.add('dot_selected');
 });
 
-arrowLeft.addEventListener('click', function() {
+arrowLeft.addEventListener('click', function() { /* i-- qd arrowLeft click avec le retour si i = 0 */
 	i--;
-	console.log(i);
 	if (i === 0) {
 		i = 4;
-		updateSelectedDot();
-	} else {
-		updateSelectedDot();
-	}
+	} 
+	y = i - 1;
+	updateSelectedDot();
+	changeSlide();
 });
 
-arrowRight.addEventListener('click', function(){
+arrowRight.addEventListener('click', function(){ /* i++ qd arrowLeft click avec le retour si i = 5 */
 	i++;
-	console.log(i);
 	if ( i === 5) {
 		i = 1;
-		updateSelectedDot();
-	} else {
-		updateSelectedDot();
 	}
+	y = i - 1;
+	updateSelectedDot();
+	changeSlide();
 });
 
-function updateSelectedDot() {
+function updateSelectedDot() { /* function update le i en ++ ou -- avec les arrows attention ne fait pas l'effet infini */
 	const dots = document.querySelectorAll('span.dot');
 
 	dots.forEach((dot, index) => {
@@ -59,4 +60,11 @@ function updateSelectedDot() {
 			dot.classList.remove('dot_selected');
 		}
 	})
+}
+
+function changeSlide() {
+	changingImage.setAttribute('src', slides[y].image);
+	changingText.forEach((textElement, index) => {
+		textElement.innerHTML = slides[y].tagLine;
+	});
 }
