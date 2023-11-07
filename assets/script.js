@@ -22,13 +22,10 @@ let arrowRight = document.querySelector("img.arrow_right");
 let changingImage = document.querySelector("img.banner-img");
 let changingText = document.querySelectorAll(".text");
 
-let i = 1;
-let y = 0; /* parce que l'objet slides démarre à 0 et pas 1 */
+let containerDots = document.querySelector(".dots");
 
-document.addEventListener('DOMContentLoaded', function() { /* 1st dot load quand la page load */
-	const firstDot = document.querySelector('span.dot:nth-child(1)');
-	firstDot.classList.add('dot_selected');
-});
+let i = 1;
+let y = 0;
 
 arrowLeft.addEventListener('click', function() { /* i-- qd arrowLeft click avec le retour si i = 0 */
 	i--;
@@ -42,13 +39,34 @@ arrowLeft.addEventListener('click', function() { /* i-- qd arrowLeft click avec 
 
 arrowRight.addEventListener('click', function(){ /* i++ qd arrowLeft click avec le retour si i = 5 */
 	i++;
-	if ( i === 5) {
+	if ( i === 5) { 
 		i = 1;
 	}
 	y = i - 1;
 	updateSelectedDot();
 	changeSlide();
 });
+
+
+
+function CreateDot() {
+	for(let i = 0; i < 4; i++){
+		const spanElement = document.createElement('span');
+		spanElement.className = 'dot';
+
+		containerDots.appendChild(spanElement);
+	}
+}
+CreateDot();
+
+function FirstDot() {
+	document.addEventListener('DOMContentLoaded', function() { /* 1st dot load quand la page load */
+	const firstDot = document.querySelector('span.dot:nth-child(1)');
+	firstDot.classList.add('dot_selected');
+});
+}
+FirstDot();
+
 
 function updateSelectedDot() { /* function update le i en ++ ou -- avec les arrows attention ne fait pas l'effet infini */
 	const dots = document.querySelectorAll('span.dot');
