@@ -25,32 +25,29 @@ let changingText = document.querySelectorAll(".text");
 let containerDots = document.querySelector(".dots");
 
 let i = 1;
-let y = 0;
 
-arrowLeft.addEventListener('click', function() { /* i-- qd arrowLeft click avec le retour si i = 0 */
+arrowLeft.addEventListener('click', function() { 
 	i--;
-	if (i === 0) {
-		i = 4;
-	} 
-	y = i - 1;
-	updateSelectedDot();
+	if (i === 0) { 
+		i = slides.length; 
+	}  
+	DotGenerator();
 	changeSlide();
 });
 
-arrowRight.addEventListener('click', function(){ /* i++ qd arrowLeft click avec le retour si i = 5 */
+arrowRight.addEventListener('click', function(){ 
 	i++;
-	if ( i === 5) { 
-		i = 1;
+	if ( i > slides.length) {  
+		i = 1; 
 	}
-	y = i - 1;
-	updateSelectedDot();
+	DotGenerator();
 	changeSlide();
 });
 
 
 
 function CreateDot() {
-	for(let i = 0; i < 4; i++){
+	for(let j = 0; j < slides.length; j++){
 		const spanElement = document.createElement('span');
 		spanElement.className = 'dot';
 
@@ -59,30 +56,28 @@ function CreateDot() {
 }
 CreateDot();
 
-function FirstDot() {
-	document.addEventListener('DOMContentLoaded', function() { /* 1st dot load quand la page load */
-	const firstDot = document.querySelector('span.dot:nth-child(1)');
-	firstDot.classList.add('dot_selected');
-});
-}
-FirstDot();
-
-
-function updateSelectedDot() { /* function update le i en ++ ou -- avec les arrows attention ne fait pas l'effet infini */
-	const dots = document.querySelectorAll('span.dot');
+function DotGenerator() {
+	const dots = document.querySelectorAll("span.dot");
 
 	dots.forEach((dot, index) => {
-		if (index + 1 === i) {
+		if(index + 1 === i){
 			dot.classList.add('dot_selected');
 		} else {
 			dot.classList.remove('dot_selected');
 		}
-	})
+	});
 }
 
 function changeSlide() {
+	const y = i - 1;
 	changingImage.setAttribute('src', slides[y].image);
 	changingText.forEach((textElement, index) => {
-		textElement.innerHTML = slides[y].tagLine;
+		textElement.innerHTML = slides[y].tagLine; /* Remplacer y avec i */
 	});
 }
+
+document.addEventListener('DOMContentLoaded', function(){
+	DotGenerator();
+});
+
+
