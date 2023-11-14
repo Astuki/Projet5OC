@@ -14,7 +14,11 @@ const slides = [
 	{
 		"image":"assets/images/slideshow/slide4.png",
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
-	}
+	},
+	/*{
+		"image":"assets/images/slideshow/slide3.jpg",
+		"tagLine":"Grand choix de couleurs <span>de CMJN aux pantones</span>"
+	}*/ /* Pour la soutenance */
 ]
 
 let arrowLeft = document.querySelector("img.arrow_left");
