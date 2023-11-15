@@ -75,13 +75,13 @@ function DotGenerator() {
 function changeSlide() {
 	const y = i - 1;
 	changingImage.setAttribute('src', slides[y].image);
-	changingText.forEach((textElement, index) => {
-		textElement.innerHTML = slides[y].tagLine; /* Remplacer y avec i */
+	changingText.forEach((textElement) => {
+		textElement.innerHTML = slides[y].tagLine;
 	});
 }
 
-document.addEventListener('DOMContentLoaded', function(){
-	DotGenerator();
-});
+
+DotGenerator();
+
 
 
